@@ -13,20 +13,22 @@
 #define DEBUG_PRINTF(...) do{ } while ( false )
 #endif
 
-typedef struct REQUEST {
+typedef struct BLASTER_HTTP_REQUEST {
     char *path; //4 or 8 bytes
     int *path_length; // 4 or 8 bytes
     struct http_parser_url *url_parser; // 4 or 8 bytes
-    bool *keep_alive; // 1 bytes
-} REQUEST;
+    bool *keep_alive; // 4 or 8 bytes
+    bool *body_ready; // 4 or 8
+} BLASTER_HTTP_REQUEST;
 
 int url_ready(http_parser* parser, const char *url, size_t length) {
-    REQUEST* request = (REQUEST* )parser->data;
+    BLASTER_HTTP_REQUEST* request = (BLASTER_HTTP_REQUEST* )parser->data;
+    struct http_parser_url *url_parser = request->url_parser;
 
-    http_parser_parse_url(url, length, parser->method == HTTP_CONNECT, request->url_parser);
+    http_parser_parse_url(url, length, parser->method == HTTP_CONNECT, url_parser);
 
-    uint16_t offset = (request->url_parser)->field_data[UF_PATH].off;
-    uint16_t path_length = (request->url_parser)->field_data[UF_PATH].len;
+    uint16_t offset = url_parser->field_data[UF_PATH].off;
+    uint16_t path_length = url_parser->field_data[UF_PATH].len;
 
     *request->path_length = length;
     memcpy(request->path, url + offset, path_length);
@@ -34,8 +36,14 @@ int url_ready(http_parser* parser, const char *url, size_t length) {
 }
 
 int on_headers_ready(http_parser* parser) {
-    REQUEST* request = (REQUEST* )parser->data;
+    BLASTER_HTTP_REQUEST* request = (BLASTER_HTTP_REQUEST* )parser->data;
     *(request->keep_alive) = (bool) http_should_keep_alive(parser);
+    return 0;
+}
+
+int on_body_ready(http_parser* parser) {
+    BLASTER_HTTP_REQUEST* request = (BLASTER_HTTP_REQUEST* )parser->data;
+    *(request->body_ready) = true;
     return 0;
 }
 
@@ -44,18 +52,18 @@ char keep_alive_capable[] = "HTTP/1.1 200 OK\r\nContent-Length: 4\r\nKeep-Alive:
 
 
 coroutine void handle_request(tcpsock client) {
+    int64_t connection_last_data_time = now();
     char path[2048] = {0};
     char buf[8192];
     struct http_parser_url url_parser = {};
-    http_parser_url_init(&url_parser);
-    int path_length = -1;
-    bool keep_alive_request = false;
+    int path_length;
 
-    REQUEST request = {path, &path_length, &url_parser, &keep_alive_request};
-    int64_t t_s = 0;
+    bool keep_alive_request = false;
+    bool body_ready = false;
+
+    BLASTER_HTTP_REQUEST request = {path, &path_length, &url_parser, &keep_alive_request, &body_ready};
     int reqs_left = 199;
     size_t num_bytes;
-    size_t num_bytes_parsed;
     http_parser_settings settings;
     http_parser parser;
     http_parser_init(&parser, HTTP_REQUEST);
@@ -63,43 +71,62 @@ coroutine void handle_request(tcpsock client) {
     parser.data = &request;
     settings.on_url = url_ready;
     settings.on_headers_complete = on_headers_ready;
+    settings.on_message_complete = on_body_ready;
 
     begin:
     path_length = -1;
+    int64_t request_time_start = now();
 
     while(true) {
         int64_t deadline = now() + 5;
         num_bytes = tcprecv(client, buf, sizeof(buf), deadline);
-        if (num_bytes == 0) {
-            break;
-        }
-        if (errno != ETIMEDOUT)
-        {
-            if (errno == ECONNRESET) {
-                DEBUG_PRINTF("RESET! reqs left: %i bytes: %zu data: %s\n", reqs_left, num_bytes, buf);
-                goto cleanup;
-            }
-            DEBUG_PRINTF("Errno %d\n", errno);
+        if (errno == ECONNRESET) {
             goto cleanup;
         }
-        t_s = now();
-        num_bytes_parsed = http_parser_execute(&parser, &settings, buf, num_bytes);
-        if (num_bytes_parsed == 0)
-            break;
-    }
-    num_bytes_parsed = http_parser_execute(&parser, &settings, buf, num_bytes);
-    if (path_length > -1) {
-        if (keep_alive_request) {
-            tcpsend(client, keep_alive_capable, sizeof(keep_alive_capable), -1);
-            tcpflush(client, -1);
-            if ((now() - t_s) > 15*1000 || reqs_left == 0) {
+
+        if (num_bytes > 0) {
+            connection_last_data_time = now();
+            http_parser_execute(&parser, &settings, buf, num_bytes);
+        } else {
+            int64_t time_point = now();
+
+            if (time_point - request_time_start > 100*1000) {
+                DEBUG_PRINTF("Closed by num_bytes == 0 and gave 100 seconds to do something\n");
                 goto cleanup;
             }
+
+            if (time_point - connection_last_data_time > 15*1000) {
+                DEBUG_PRINTF("Too long idle\n");
+                goto cleanup;
+            }
+
+            msleep(10); // we had no data. Let's give it 10ms to get it's act together
+            continue;
+        }
+        if (body_ready) {
+            break;
+        }
+    }
+    http_parser_execute(&parser, &settings, buf, num_bytes);
+    if (path_length > -1) {
+        if (keep_alive_request) {
+            if (now() - connection_last_data_time > 15*1000) {
+                DEBUG_PRINTF("Parsing HTTP phase too long idle!\n");
+                goto cleanup;
+            }
+            if (!reqs_left) {
+                // DEBUG_PRINTF("No requests left!\n");
+                goto cleanup;
+            }
+            tcpsend(client, keep_alive_capable, sizeof(keep_alive_capable), -1);
+            tcpflush(client, -1);
+            connection_last_data_time = now();
             reqs_left--;
             goto begin;
         } else {
             tcpsend(client, no_keep_alive, sizeof(no_keep_alive), -1);
             tcpflush(client, -1);
+            connection_last_data_time = now();
         }
     }
 
