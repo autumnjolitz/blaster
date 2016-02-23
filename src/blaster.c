@@ -79,7 +79,7 @@ coroutine void handle_request(tcpsock client) {
     path_length = -1;
     request_time_start = now();
 
-    while(true) {
+    do {
         current_ts = now();
         num_bytes = tcprecv(client, buf, sizeof(buf), current_ts + 5);
         if (errno == ECONNRESET) {
@@ -101,10 +101,8 @@ coroutine void handle_request(tcpsock client) {
                 goto cleanup;
             }
         }
-        if (body_ready) {
-            break;
-        }
-    }
+    } while(!body_ready);
+
     if (path_length > -1) {
         if (keep_alive_request) {
             if (now() - connection_last_data_time > 15*1000) {
