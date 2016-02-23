@@ -50,7 +50,7 @@ int on_body_ready(http_parser* parser) {
 
 // Hardcoded HTTP responses
 char no_keep_alive[] = "HTTP/1.1 200 OK\r\nContent-Length: 4\r\nConnection: close\r\n\r\nOk\n";
-char keep_alive_capable[] = "HTTP/1.1 200 OK\r\nContent-Length: 4\r\nKeep-Alive: timeout=15, max=200\r\nConnection: keep-alive\r\n\r\nOk\n";
+char keep_alive_capable[] = "HTTP/1.1 200 OK\r\nContent-Length: 4\r\nKeep-Alive: timeout=5, max=20\r\nConnection: keep-alive\r\n\r\nOk\n";
 
 /*
 ** handle_request(tcpsock client)
@@ -63,97 +63,74 @@ char keep_alive_capable[] = "HTTP/1.1 200 OK\r\nContent-Length: 4\r\nKeep-Alive:
 ** Stack allocation is used in conjunction with pointers to elide expensive copying of structs
 ** and costly malloc()s
 */
-coroutine void handle_request(tcpsock client) {
-    int64_t connection_last_data_time = now();
-    char path[2048] = {0};
-    char buf[8192];
-    struct http_parser_url url_parser = {};
-    int path_length;
+coroutine void handle_request(tcpsock client, int requests_left) {
+    if (requests_left == 0) {
+        goto close;
+    }
+    char path[200] = {0};
+    int path_length = 0;
+    struct http_parser_url url_parser;
+    http_parser_url_init(&url_parser);
 
-    bool keep_alive_request = false;
+    bool keep_alive = false;
     bool body_ready = false;
 
-    BLASTER_HTTP_REQUEST request = {path, &path_length, &url_parser, &keep_alive_request, &body_ready};
-    int reqs_left = 199;
-    size_t num_bytes;
-    http_parser_settings settings;
-    http_parser parser;
-    http_parser_init(&parser, HTTP_REQUEST);
+    BLASTER_HTTP_REQUEST request = {path, &path_length, &url_parser, &keep_alive, &body_ready};
 
-    parser.data = &request;
+    http_parser_settings settings;
+    http_parser_settings_init(&settings);
     settings.on_url = on_url_ready;
     settings.on_headers_complete = on_headers_ready;
     settings.on_message_complete = on_body_ready;
 
-    int64_t request_time_start, current_ts;
+    http_parser parser;
+    http_parser_init(&parser, HTTP_REQUEST);
+    parser.data = &request;
 
-    // Launch point for handling another HTTP request.
-    begin:
-    path_length = -1;
-    request_time_start = now();
+    int64_t request_death_ts = now() + 10*1000; // 10 second lifetime
+    int64_t last_wakeup = 0;
 
-    // Receive and parse data until we've read the body:
-    do {
-        current_ts = now();
-        // Set a deadline of receiving any data within 5ms.
-        num_bytes = tcprecv(client, buf, sizeof(buf), current_ts + 5);
-        // Oops, we lost the connection. Clear it out.
+    while(true) {
+        int64_t current_ts = now();
+        if (current_ts > request_death_ts) {
+            DEBUG_PRINTF("We have used up 10 seconds on this client. Closing...\n");
+            break;
+        }
+        char buf[2048];
+        size_t num_bytes_read = tcprecv(client, buf, sizeof(buf), now() + 1);
         if (errno == ECONNRESET) {
-            goto cleanup;
+            DEBUG_PRINTF("Connection reset, %d requests left\n", requests_left);
+            break;
         }
-
-        if (num_bytes > 0) {
-            // Parse some data and update the idle time stamp.
-            connection_last_data_time = now();
-            http_parser_execute(&parser, &settings, buf, num_bytes);
-            // signal that other coroutines may execute
-            yield();
-        } else {
-            // We have nothing received yet. Do a sanity check:
-
-            // Have we spent an inordinately long amount of time on this connection (100sec)?
-            if (current_ts - request_time_start > 100*1000) {
-                DEBUG_PRINTF("Closed by num_bytes == 0 and gave 100 seconds to do something\n");
-                goto cleanup;
-            }
-            // Have we been idle too long?
-            if (keep_alive_request && current_ts - connection_last_data_time > 15*1000) {
-                DEBUG_PRINTF("Too long idle on a keepalive connection!\n");
-                goto cleanup;
-            }
-        }
-    } while(!body_ready);
-
-    // Handle the case where we found a valid HTTP path definition:
-    if (path_length > -1) {
-        // Special case: Keep alives are ground hogs day -- we have to cycle around and
-        // do it all over again:
-
-        if (keep_alive_request) {
-            if (now() - connection_last_data_time > 15*1000) {
-                DEBUG_PRINTF("Too long idle on a keepalive connection after parsing!\n");
-                goto cleanup;
-            }
-            if (!reqs_left) {
-                // DEBUG_PRINTF("No requests left!\n");
-                goto cleanup;
-            }
-            tcpsend(client, keep_alive_capable, sizeof(keep_alive_capable), -1);
+        if(num_bytes_read > 0) {
+            last_wakeup = current_ts;
+            http_parser_execute(&parser, &settings, buf, num_bytes_read);
+        } else if (current_ts - last_wakeup >= 5*1000 && keep_alive) {
+            DEBUG_PRINTF("Connection idle for more than 5 seconds. Flushing and closing.\n");
             tcpflush(client, -1);
-            // The connection is no longer idle:
-            connection_last_data_time = now();
-            reqs_left--;
-            goto begin;
+            break;
         }
-
-        // Not a keep alive connection, so just send it out and go!
-        tcpsend(client, no_keep_alive, sizeof(no_keep_alive), -1);
-        tcpflush(client, -1);
+        if(body_ready) {
+            // if (path_length > 0) {
+                // if(keep_alive) {
+                //     tcpsend(client, keep_alive_capable, sizeof(keep_alive_capable), -1);
+                //     goto reuse;
+                // }
+                tcpsend(client, no_keep_alive, sizeof(no_keep_alive), -1);
+            // }
+            yield();
+            tcpflush(client, -1);
+            break;
+        }
     }
 
-
-    cleanup:
+    close:
         tcpclose(client);
+    return;
+    // reuse:
+    //     tcpflush(client, -1);
+    //     yield();
+    //     handle_request(client, requests_left-1);
 }
 
 int main(int arg_count, char* args[]) {
@@ -174,7 +151,7 @@ int main(int arg_count, char* args[]) {
         return 2;
     }
     ipaddr address = iplocal(NULL, port, 0);
-    tcpsock server_socket = tcplisten(address, 100);
+    tcpsock server_socket = tcplisten(address, 300);
     pid_t current_pid = getpid();
     printf("Starting %d process(es)\n", num_processes);
     if (num_processes > 1) {
@@ -201,10 +178,12 @@ int main(int arg_count, char* args[]) {
     // Any time our server_socket is ready, check if the client socket is good
     // the launch a fiber to deal with it.
     while(true) {
-        tcpsock client_tunnel = tcpaccept(server_socket, -1);
-        if (client_tunnel == NULL)
+        int64_t deadline = now() + 5;
+        tcpsock client_tunnel = tcpaccept(server_socket, deadline);
+        if (client_tunnel == NULL) {
             continue;
-        go(handle_request(client_tunnel));
+        }
+        go(handle_request(client_tunnel, 20));
     }
     return 0;
 }
