@@ -30,3 +30,8 @@
 
 # Debug files
 *.dSYM/
+
+blaster
+*.sublime-workspace
+bin/
+build

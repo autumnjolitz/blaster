@@ -89,7 +89,7 @@ coroutine void handle_request(tcpsock client) {
         if (num_bytes > 0) {
             connection_last_data_time = now();
             http_parser_execute(&parser, &settings, buf, num_bytes);
-            yield();
+            yield(); // signal that other coroutines may execute
         } else {
             if (current_ts - request_time_start > 100*1000) {
                 DEBUG_PRINTF("Closed by num_bytes == 0 and gave 100 seconds to do something\n");
