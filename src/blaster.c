@@ -73,13 +73,15 @@ coroutine void handle_request(tcpsock client) {
     settings.on_headers_complete = on_headers_ready;
     settings.on_message_complete = on_body_ready;
 
+    int64_t request_time_start, current_ts;
+
     begin:
     path_length = -1;
-    int64_t request_time_start = now();
+    request_time_start = now();
 
     while(true) {
-        int64_t deadline = now() + 5;
-        num_bytes = tcprecv(client, buf, sizeof(buf), deadline);
+        current_ts = now();
+        num_bytes = tcprecv(client, buf, sizeof(buf), current_ts + 5);
         if (errno == ECONNRESET) {
             goto cleanup;
         }
@@ -87,27 +89,22 @@ coroutine void handle_request(tcpsock client) {
         if (num_bytes > 0) {
             connection_last_data_time = now();
             http_parser_execute(&parser, &settings, buf, num_bytes);
+            yield();
         } else {
-            int64_t time_point = now();
-
-            if (time_point - request_time_start > 100*1000) {
+            if (current_ts - request_time_start > 100*1000) {
                 DEBUG_PRINTF("Closed by num_bytes == 0 and gave 100 seconds to do something\n");
                 goto cleanup;
             }
 
-            if (time_point - connection_last_data_time > 15*1000) {
+            if (current_ts - connection_last_data_time > 15*1000) {
                 DEBUG_PRINTF("Too long idle\n");
                 goto cleanup;
             }
-
-            msleep(10); // we had no data. Let's give it 10ms to get it's act together
-            continue;
         }
         if (body_ready) {
             break;
         }
     }
-    http_parser_execute(&parser, &settings, buf, num_bytes);
     if (path_length > -1) {
         if (keep_alive_request) {
             if (now() - connection_last_data_time > 15*1000) {
@@ -132,7 +129,7 @@ coroutine void handle_request(tcpsock client) {
 
 
     cleanup:
-    tcpclose(client);
+        tcpclose(client);
 }
 
 int main(int arg_count, char* args[]) {
@@ -155,8 +152,8 @@ int main(int arg_count, char* args[]) {
     ipaddr address = iplocal(NULL, port, 0);
     tcpsock server_socket = tcplisten(address, 100);
     pid_t current_pid = getpid();
+    printf("Starting %d process(es)\n", num_processes);
     if (num_processes > 1) {
-        printf("Starting %d processes\n", num_processes);
         for (int i = 0; i < num_processes - 1; ++i) {
             pid_t pid = mfork();
             if (pid < 0) {
@@ -174,6 +171,7 @@ int main(int arg_count, char* args[]) {
         printf("Cannot open listening socket on port %d", port);
         return 3;
     }
+    printf("Listening on port %d\n", port);
     while(true) {
         tcpsock client_tunnel = tcpaccept(server_socket, -1);
         if (client_tunnel == NULL)
