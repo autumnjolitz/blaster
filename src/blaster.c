@@ -21,7 +21,8 @@ typedef struct BLASTER_HTTP_REQUEST {
     bool *body_ready; // 4 or 8
 } BLASTER_HTTP_REQUEST;
 
-int url_ready(http_parser* parser, const char *url, size_t length) {
+// Handlers for parsing HTTP requests:
+int on_url_ready(http_parser* parser, const char *url, size_t length) {
     BLASTER_HTTP_REQUEST* request = (BLASTER_HTTP_REQUEST* )parser->data;
     struct http_parser_url *url_parser = request->url_parser;
 
@@ -47,10 +48,21 @@ int on_body_ready(http_parser* parser) {
     return 0;
 }
 
+// Hardcoded HTTP responses
 char no_keep_alive[] = "HTTP/1.1 200 OK\r\nContent-Length: 4\r\nConnection: close\r\n\r\nOk\n";
 char keep_alive_capable[] = "HTTP/1.1 200 OK\r\nContent-Length: 4\r\nKeep-Alive: timeout=15, max=200\r\nConnection: keep-alive\r\n\r\nOk\n";
 
-
+/*
+** handle_request(tcpsock client)
+** This is our request handler. It sets up an HTTP parser, signals various
+** boolean pointers to indicate state, defines deadlines and invokes a yield after
+** a potentially expensive function (parsing HTTP headers).
+** The on_ functions above are used to checkpoint states in parsing and convey data
+** back to the suspended coroutine.
+**
+** Stack allocation is used in conjunction with pointers to elide expensive copying of structs
+** and costly malloc()s
+*/
 coroutine void handle_request(tcpsock client) {
     int64_t connection_last_data_time = now();
     char path[2048] = {0};
@@ -69,44 +81,57 @@ coroutine void handle_request(tcpsock client) {
     http_parser_init(&parser, HTTP_REQUEST);
 
     parser.data = &request;
-    settings.on_url = url_ready;
+    settings.on_url = on_url_ready;
     settings.on_headers_complete = on_headers_ready;
     settings.on_message_complete = on_body_ready;
 
     int64_t request_time_start, current_ts;
 
+    // Launch point for handling another HTTP request.
     begin:
     path_length = -1;
     request_time_start = now();
 
+    // Receive and parse data until we've read the body:
     do {
         current_ts = now();
+        // Set a deadline of receiving any data within 5ms.
         num_bytes = tcprecv(client, buf, sizeof(buf), current_ts + 5);
+        // Oops, we lost the connection. Clear it out.
         if (errno == ECONNRESET) {
             goto cleanup;
         }
 
         if (num_bytes > 0) {
+            // Parse some data and update the idle time stamp.
             connection_last_data_time = now();
             http_parser_execute(&parser, &settings, buf, num_bytes);
-            yield(); // signal that other coroutines may execute
+            // signal that other coroutines may execute
+            yield();
         } else {
+            // We have nothing received yet. Do a sanity check:
+
+            // Have we spent an inordinately long amount of time on this connection (100sec)?
             if (current_ts - request_time_start > 100*1000) {
                 DEBUG_PRINTF("Closed by num_bytes == 0 and gave 100 seconds to do something\n");
                 goto cleanup;
             }
-
-            if (current_ts - connection_last_data_time > 15*1000) {
-                DEBUG_PRINTF("Too long idle\n");
+            // Have we been idle too long?
+            if (keep_alive_request && current_ts - connection_last_data_time > 15*1000) {
+                DEBUG_PRINTF("Too long idle on a keepalive connection!\n");
                 goto cleanup;
             }
         }
     } while(!body_ready);
 
+    // Handle the case where we found a valid HTTP path definition:
     if (path_length > -1) {
+        // Special case: Keep alives are ground hogs day -- we have to cycle around and
+        // do it all over again:
+
         if (keep_alive_request) {
             if (now() - connection_last_data_time > 15*1000) {
-                DEBUG_PRINTF("Parsing HTTP phase too long idle!\n");
+                DEBUG_PRINTF("Too long idle on a keepalive connection after parsing!\n");
                 goto cleanup;
             }
             if (!reqs_left) {
@@ -115,14 +140,15 @@ coroutine void handle_request(tcpsock client) {
             }
             tcpsend(client, keep_alive_capable, sizeof(keep_alive_capable), -1);
             tcpflush(client, -1);
+            // The connection is no longer idle:
             connection_last_data_time = now();
             reqs_left--;
             goto begin;
-        } else {
-            tcpsend(client, no_keep_alive, sizeof(no_keep_alive), -1);
-            tcpflush(client, -1);
-            connection_last_data_time = now();
         }
+
+        // Not a keep alive connection, so just send it out and go!
+        tcpsend(client, no_keep_alive, sizeof(no_keep_alive), -1);
+        tcpflush(client, -1);
     }
 
 
@@ -170,6 +196,10 @@ int main(int arg_count, char* args[]) {
         return 3;
     }
     printf("Listening on port %d\n", port);
+
+    // Event loop
+    // Any time our server_socket is ready, check if the client socket is good
+    // the launch a fiber to deal with it.
     while(true) {
         tcpsock client_tunnel = tcpaccept(server_socket, -1);
         if (client_tunnel == NULL)
