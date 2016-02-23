@@ -1,0 +1,2080 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"calc",
+				"calculated_status"
+			],
+			[
+				"qu",
+				"query	(statement)"
+			],
+			[
+				"modif",
+				"modified_username"
+			],
+			[
+				"map",
+				"mappings	(statement)"
+			],
+			[
+				"val",
+				"values	(statement)"
+			],
+			[
+				"qer",
+				"query_format_args	(statement)"
+			],
+			[
+				"quer",
+				"query_format_args	(statement)"
+			],
+			[
+				"id",
+				"id_n	(forstmt)"
+			],
+			[
+				"chan",
+				"changed_values"
+			],
+			[
+				"bid",
+				"bid_type	(statement)"
+			],
+			[
+				"INVER",
+				"INVERSE_BID_TYPE_MAP	(instance)"
+			],
+			[
+				"B",
+				"BID_TYPE_MAP	(statement)"
+			],
+			[
+				"str",
+				"structure	(statement)"
+			],
+			[
+				"summar",
+				"summary	(statement)"
+			],
+			[
+				"log",
+				"login_required	(function)"
+			],
+			[
+				"Val",
+				"ValueError	(class)"
+			],
+			[
+				"tena",
+				"tenant_id"
+			],
+			[
+				"tean",
+				"tenant_id"
+			],
+			[
+				"yie",
+				"yield_from_support"
+			],
+			[
+				"wrapp",
+				"wrapper	(function)"
+			],
+			[
+				"asy",
+				"async_support"
+			],
+			[
+				"yiel",
+				"yield_from_support	(function)"
+			],
+			[
+				"get",
+				"getAllTargetProfilesByAdGroup	(function)"
+			],
+			[
+				"fet",
+				"fetch_geotargets_by_adgroup	(function)"
+			],
+			[
+				"his",
+				"history	(forstmt)"
+			],
+			[
+				"res",
+				"result_set	(forstmt)"
+			],
+			[
+				"bus",
+				"business_profile_history	(statement)"
+			],
+			[
+				"Bus",
+				"BusinessLocation	(class)"
+			],
+			[
+				"Busi",
+				"BusinessProfile	(class)"
+			],
+			[
+				"mod",
+				"modified_date"
+			],
+			[
+				"hist",
+				"history	(forstmt)"
+			],
+			[
+				"en",
+				"enum_cls	(statement)"
+			],
+			[
+				"inte",
+				"interpret	(function)"
+			],
+			[
+				"ad",
+				"adgroup_history	(statement)"
+			],
+			[
+				"ex",
+				"exhausted_generators	(param)"
+			],
+			[
+				"un",
+				"uniq_key	(statement)"
+			],
+			[
+				"exe",
+				"executeMultipleQueriesWithConnection	(function)"
+			],
+			[
+				"loca",
+				"local_values	(statement)"
+			],
+			[
+				"db",
+				"db_utils	(module)"
+			],
+			[
+				"ipz",
+				"izip_longest	(class)"
+			],
+			[
+				"tye",
+				"type	(class)"
+			],
+			[
+				"ret",
+				"Return	(class)"
+			],
+			[
+				"is",
+				"isinstance	(function)"
+			],
+			[
+				"as",
+				"async	(function)"
+			],
+			[
+				"ohter",
+				"other_locations"
+			],
+			[
+				"other",
+				"other_locations"
+			],
+			[
+				"mobil",
+				"mobileSite_id"
+			],
+			[
+				"as_",
+				"as_json	(function)"
+			],
+			[
+				"locations",
+				"locations_count"
+			],
+			[
+				"inva",
+				"invalid_value	(statement)"
+			],
+			[
+				"ins",
+				"insert_id	(forstmt)"
+			],
+			[
+				"prof",
+				"profiles	(param)"
+			],
+			[
+				"overr",
+				"override_read_only"
+			],
+			[
+				"inse",
+				"insert_only	(param)"
+			],
+			[
+				"err",
+				"error_codes	(module)"
+			],
+			[
+				"pro",
+				"profile_insert	(forstmt)"
+			],
+			[
+				"type",
+				"type_name	(statement)"
+			],
+			[
+				"inser",
+				"insert_only"
+			],
+			[
+				"que",
+				"queries	(statement)"
+			],
+			[
+				"error",
+				"error_behavior	(param)"
+			],
+			[
+				"update",
+				"update_by_name"
+			],
+			[
+				"asser",
+				"assertGreater	(function)"
+			],
+			[
+				"Crea",
+				"CreativeType	(class)"
+			],
+			[
+				"uuid",
+				"uuid4	(function)"
+			],
+			[
+				"a",
+				"adgroup	(statement)"
+			],
+			[
+				"REF",
+				"REFRESH_CALC_STATUS	(statement)"
+			],
+			[
+				"REFR",
+				"REFRESH_CALC_STATUS	(statement)"
+			],
+			[
+				"Ex",
+				"ExtendedStatus	(class)"
+			],
+			[
+				"Bud",
+				"BudgetEntityType	(class)"
+			],
+			[
+				"Bd",
+				"BudgetEntityType	(class)"
+			],
+			[
+				"extra",
+				"extract_bid_rate"
+			],
+			[
+				"cam",
+				"campaign_budget"
+			],
+			[
+				"camp",
+				"campaign"
+			],
+			[
+				"campa",
+				"campaign"
+			],
+			[
+				"sta",
+				"startDate"
+			],
+			[
+				"adg",
+				"adgrouplocation"
+			],
+			[
+				"mobi",
+				"mobilesite_id"
+			],
+			[
+				"GROU",
+				"GROUP_CONCAT"
+			],
+			[
+				"class",
+				"classmethod	(class)"
+			],
+			[
+				"allow_",
+				"allow_virt"
+			],
+			[
+				"business_prof",
+				"business_profile_exists"
+			],
+			[
+				"hour",
+				"hours_of_operation_pretty_value"
+			],
+			[
+				"track",
+				"tracking_phone_number"
+			],
+			[
+				"address",
+				"address2"
+			],
+			[
+				"zipco",
+				"zipcode_geocode"
+			],
+			[
+				"account",
+				"account_id"
+			],
+			[
+				"business_pr",
+				"business_profile_id"
+			],
+			[
+				"mobile",
+				"mobileSite_id"
+			],
+			[
+				"BI",
+				"BusinessLocation	(class)"
+			],
+			[
+				"locat",
+				"location_count_query"
+			],
+			[
+				"count",
+				"count_local_locations	(statement)"
+			],
+			[
+				"assertE",
+				"assertEquals	(statement)"
+			],
+			[
+				"Bs",
+				"BusinessLocation	(class)"
+			],
+			[
+				"va",
+				"valid_location	(statement)"
+			],
+			[
+				"MS",
+				"MsLocationLocationStatus	(class)"
+			],
+			[
+				"updated",
+				"updated_date"
+			],
+			[
+				"max",
+				"max_length	(statement)"
+			],
+			[
+				"len",
+				"length	(statement)"
+			],
+			[
+				"row",
+				"row_message	(statement)"
+			],
+			[
+				"zipcod",
+				"zipcode"
+			],
+			[
+				"old",
+				"old_value	(statement)"
+			],
+			[
+				"lang",
+				"language_code"
+			],
+			[
+				"landing_pac",
+				"landing_page_config"
+			],
+			[
+				"_up",
+				"_upload_lock	(statement)"
+			],
+			[
+				"land",
+				"landing_page_config"
+			],
+			[
+				"S3",
+				"S3_SECRET_KEY	(statement)"
+			],
+			[
+				"get_ke",
+				"get_all_keys	(function)"
+			],
+			[
+				"key",
+				"key_url	(statement)"
+			],
+			[
+				"upda",
+				"updateBusinessProfile	(function)"
+			],
+			[
+				"up",
+				"upload_asset_to_s3	(function)"
+			],
+			[
+				"upl",
+				"upload_image_assets"
+			],
+			[
+				"add",
+				"additional_boto_options	(param)"
+			],
+			[
+				"assertNo",
+				"assertNotEquals	(statement)"
+			],
+			[
+				"Pr",
+				"PROPERTY_POST_DOWNLOAD_FUNC	(statement)"
+			],
+			[
+				"cms",
+				"cms_config"
+			],
+			[
+				"Gen",
+				"GeneralCreativeConfig	(class)"
+			],
+			[
+				"start",
+				"startswith"
+			],
+			[
+				"_ha",
+				"_handle_cms_config_set	(function)"
+			],
+			[
+				"PRO",
+				"PROPERTY_POST_DOWNLOAD_FUNC	(statement)"
+			],
+			[
+				"BUC",
+				"S3_BUCKET_NAME"
+			],
+			[
+				"imageUrl",
+				"imageUrl_50x50"
+			],
+			[
+				"actu",
+				"actual_height"
+			],
+			[
+				"Ima",
+				"ImageBotoSupport	(class)"
+			],
+			[
+				"assertI",
+				"assertIn	(function)"
+			],
+			[
+				"fo",
+				"format"
+			],
+			[
+				"ra",
+				"ratio	(param)"
+			],
+			[
+				"mi",
+				"mime_type	(statement)"
+			],
+			[
+				"UNABLE_TO",
+				"UNABLE_TO_DETERMINE_IMAGE_TYPE"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/BenJolitz/software/blaster/Makefile",
+			"settings":
+			{
+				"buffer_size": 6626,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "hello.c",
+			"settings":
+			{
+				"buffer_size": 4370,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Makefile/Make.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 270.0,
+		"last_filter": "git pus",
+		"selected_items":
+		[
+			[
+				"git pus",
+				"Git: Push"
+			],
+			[
+				"git qc",
+				"Git: Quick Commit"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"git log",
+				"Git: Log"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"update",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"orga",
+				"Python Refactor: Organize Imports"
+			],
+			[
+				"sspy",
+				"Set Syntax: Python"
+			],
+			[
+				"ssq",
+				"Set Syntax: SQL"
+			],
+			[
+				"pretp",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"upp",
+				"Convert Case: Upper Case"
+			],
+			[
+				"ssql",
+				"Set Syntax: SQL"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git st",
+				"Git: Status"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"jsopre",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"git ch",
+				"Git: Checkout"
+			],
+			[
+				"cosp",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"git che",
+				"Git: Checkout"
+			],
+			[
+				"new bra",
+				"Git: Checkout New Branch"
+			],
+			[
+				"lowe",
+				"Convert Case: Lower Case"
+			],
+			[
+				"git ps",
+				"Git: Push"
+			],
+			[
+				"list pa",
+				"Package Control: List Packages"
+			],
+			[
+				"pre",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"git qc ",
+				"Git: Quick Commit"
+			],
+			[
+				"git pu",
+				"Git: Push"
+			],
+			[
+				"git p",
+				"Git: Push"
+			],
+			[
+				"sspyf",
+				"Set Syntax: OpenBSD PF conf"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"qc",
+				"Git: Quick Commit"
+			],
+			[
+				"upper",
+				"Convert Case: Upper Case"
+			],
+			[
+				"reve",
+				"File: Revert"
+			],
+			[
+				"git blam",
+				"Git: Blame"
+			],
+			[
+				"org",
+				"Python Refactor: Organize Imports"
+			],
+			[
+				"git bla",
+				"Git: Blame"
+			],
+			[
+				"git lo",
+				"Git: Log"
+			],
+			[
+				"sq",
+				"Set Syntax: SQL"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"git diff",
+				"Git: Diff Current File"
+			],
+			[
+				"git psu",
+				"Git: Push"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"git statr",
+				"Git-flow: Hotfix Start"
+			],
+			[
+				"upperc",
+				"Convert Case: Upper Case"
+			],
+			[
+				"disable",
+				"SublimeLinter: Disable Linter"
+			],
+			[
+				"prett",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"pret",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"git ql",
+				"Git: Quick Log"
+			],
+			[
+				"git sat",
+				"Git: Add Signed Tag"
+			],
+			[
+				"git qlcf",
+				"Git: Quick Log Current File"
+			],
+			[
+				"ssgit",
+				"Set Syntax: SublimeGit Status"
+			],
+			[
+				"cam",
+				"Set Syntax: camlp4"
+			],
+			[
+				"gst",
+				"Git: Add Signed Tag"
+			],
+			[
+				"uppca",
+				"Convert Case: Upper Case"
+			],
+			[
+				"gitp us",
+				"Git: Push"
+			],
+			[
+				"gt qc",
+				"Git: Quick Commit"
+			],
+			[
+				"git l",
+				"Git: Log"
+			],
+			[
+				"git pusa",
+				"Git: Push Current Branch"
+			],
+			[
+				"or",
+				"Python Refactor: Organize Imports"
+			],
+			[
+				"GIT STAT",
+				"Git: Status"
+			],
+			[
+				"git s",
+				"Git: Status"
+			],
+			[
+				"GIT QC",
+				"Git: Quick Commit"
+			],
+			[
+				"GIT PUS",
+				"Git: Push"
+			],
+			[
+				"it pus",
+				"Git: Push"
+			],
+			[
+				"gt stat",
+				"Git: Status"
+			],
+			[
+				"uper",
+				"Convert Case: Upper Case"
+			],
+			[
+				"vali",
+				"Pretty JSON: Validate"
+			],
+			[
+				"prejso",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"jsonli",
+				"Pretty JSON: Validate"
+			],
+			[
+				"ssjnon",
+				"Set Syntax: JSON"
+			],
+			[
+				"upda",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"ssrst",
+				"Set Syntax: reStructuredText Improved"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"upc",
+				"Convert Case: Upper Case"
+			],
+			[
+				"upper ",
+				"Convert Case: Upper Case"
+			],
+			[
+				"u",
+				"Convert Case: Upper Case"
+			],
+			[
+				"gitqc",
+				"Git: Quick Commit"
+			],
+			[
+				"gitp ",
+				"Git: Push"
+			],
+			[
+				"gush",
+				"Git: Push"
+			],
+			[
+				"git pul",
+				"Git: Pull"
+			],
+			[
+				"pull",
+				"Git: Pull"
+			],
+			[
+				"gitp u",
+				"Git: Push"
+			],
+			[
+				"gitsta",
+				"Git: Status"
+			],
+			[
+				"git stas",
+				"Git: Status"
+			],
+			[
+				"git dif",
+				"Git: Diff Current File"
+			],
+			[
+				"gitqlc",
+				"Git: Quick Log Current File"
+			],
+			[
+				"git q",
+				"Git: Quick Commit Current File"
+			],
+			[
+				"ssp",
+				"Set Syntax: Python"
+			],
+			[
+				"git qu",
+				"Git: Quick Log"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"ssbas",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"ssc",
+				"Set Syntax: C"
+			],
+			[
+				"cot",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"git chec",
+				"Git: Checkout New Branch"
+			],
+			[
+				"cota",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"enab",
+				"Package Control: Enable Package"
+			],
+			[
+				"disab",
+				"Package Control: Disable Package"
+			],
+			[
+				"ssc99",
+				"Set Syntax: C99"
+			],
+			[
+				"linter",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"git ",
+				"Git: Pull"
+			],
+			[
+				"gitpus",
+				"Git: Push"
+			],
+			[
+				"roga",
+				"Python Refactor: Organize Imports"
+			],
+			[
+				"opt",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"GIT PU",
+				"Git: Pull"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"cotab",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"html5",
+				"Snippet: Simple HTML5 Boilerplate"
+			],
+			[
+				"ssjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"git statu",
+				"Git: Status"
+			],
+			[
+				"upper c",
+				"Convert Case: Upper Case"
+			],
+			[
+				"git pua",
+				"Git: Pull Current Branch"
+			],
+			[
+				"git pll",
+				"Git: Pull"
+			],
+			[
+				"import",
+				"Python Refactor: Organize Imports"
+			],
+			[
+				"git comm",
+				"Git: Quick Commit"
+			],
+			[
+				"git stta",
+				"Git: Status"
+			],
+			[
+				"upper ca",
+				"Convert Case: Upper Case"
+			],
+			[
+				"ORG",
+				"Python Refactor: Organize Imports"
+			],
+			[
+				"close ",
+				"File: Close All"
+			],
+			[
+				"lowerc",
+				"Convert Case: Lower Case"
+			],
+			[
+				"plaint",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"git c",
+				"Git: Checkout"
+			],
+			[
+				"git he",
+				"Git: Checkout"
+			],
+			[
+				"git bra",
+				"Git: Checkout New Branch"
+			],
+			[
+				"git phs",
+				"Git: Pop Stash"
+			],
+			[
+				"co",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"cops",
+				"Indentation: Convert to Spaces"
+			]
+		],
+		"width": 475.0
+	},
+	"console":
+	{
+		"height": 387.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/BenJolitz/software/blaster",
+		"/Users/BenJolitz/software/blaster/src",
+		"/Users/BenJolitz/software/blaster/src/contrib"
+	],
+	"file_history":
+	[
+		"/Users/BenJolitz/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/BenJolitz/software/blaster/hello.c",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/test.sql",
+		"/Users/BenJolitz/software/horcrux/horcrux/about.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/db_utils.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_brands.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/test_async.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_adgroup.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/atomic.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/exceptions.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/budget.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/compat/isclose.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/compat/__init__.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/async.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/mixins.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/entity_types.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_business_locations.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/error_codes.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/__init__.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/pycountry/__init__.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/account.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/adgroup.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_business_profile.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/business_info.py",
+		"/Users/BenJolitz/software/horcrux/setup.py",
+		"/Users/BenJolitz/software/horcrux/tests/common.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/__init__.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_creative.py",
+		"/Users/BenJolitz/software/horcrux/dump.csv",
+		"/Users/BenJolitz/software/horcrux/scripts/dump_errs.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/creative.py",
+		"/Users/BenJolitz/software/horcrux/upload_errors.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/test_err",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/boto/s3/key.py",
+		"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urlparse.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/geotarget.py",
+		"/Users/BenJolitz/Library/Application Support/Sublime Text 3/Packages/User/SublimePython.sublime-settings",
+		"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/case.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/PIL/Image.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/targetprofile.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/management/adgroup_management.py",
+		"/Users/BenJolitz/software/horcrux/.gitignore",
+		"/Users/BenJolitz/kill.sql",
+		"/Users/BenJolitz/software/horcrux/scripts/geotarget_crap.py",
+		"/Users/BenJolitz/software/horcrux/scripts/adpackageclone.py",
+		"/Users/BenJolitz/software/horcrux/scripts/execute_jammed_query.py",
+		"/Users/BenJolitz/software/horcrux/sqlshell.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/db_config.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/brands.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/xadcms_utils.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/user.py",
+		"/Users/BenJolitz/software/horcrux/scripts/validate_history_schemas.py",
+		"/Users/BenJolitz/software/horcrux/async_interface_idea.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/campaign.py",
+		"/Users/BenJolitz/software/horcrux/scripts/validate_campaigns.py",
+		"/Users/BenJolitz/software/horcrux/README.rst",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/stored.sql",
+		"/Users/BenJolitz/software/horcrux/horcrux/utils.py",
+		"/Users/BenJolitz/software/horcrux/scripts/clone_adgroup.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_campaign.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/meta.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_adpackage.py",
+		"/Users/BenJolitz/software/horcrux/scripts/geotarget_clone_issues.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_geotarget.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/companies.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/categories.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/settings.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/mysql/connector/__init__.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/mysql/connector/pooling.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/boto/connection.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/boto/__init__.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/boto/s3/connection.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/boto/https_connection.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/boto/compat.py",
+		"/Users/BenJolitz/software/external_api/Makefile",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/ad_package.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/mysql/connector/connection.py",
+		"/Users/BenJolitz/software/horcrux/additional_setup.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/pip/__init__.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/pip/basecommand.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/pip/status_codes.py",
+		"/Users/BenJolitz/software/horcrux/log",
+		"/Users/BenJolitz/software/horcrux/logh",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/mysql/connector/errors.py",
+		"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/code.py",
+		"/Users/BenJolitz/.virtualenvs/fartzs/lib/python2.7/site-packages/mysql/connector/connection.py",
+		"/Users/BenJolitz/software/nameserverconf/pf.conf",
+		"/Users/BenJolitz/Downloads/mysql-connector-python-rf-2.1.3/setupinfo.py",
+		"/Users/BenJolitz/Downloads/mysql-connector-python-rf-2.1.3/setup.py",
+		"/Users/BenJolitz/.virtualenvs/fartzs/lib/python2.7/site-packages/mysql/connector/catch23.py",
+		"/Users/BenJolitz/software/horcrux/scripts/validate_creatives.py",
+		"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/logging/handlers.py",
+		"/Users/BenJolitz/software/horcrux/test.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_adgroup_budget.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_companies.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_campaign_budget.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_account.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/publisher_settings.py",
+		"/Users/BenJolitz/software/geocode_citystateboundaries.txt",
+		"/Users/BenJolitz/software/analyze.py",
+		"/Users/BenJolitz/software/horcrux/utils/validate_creatives.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/test.py",
+		"/Users/BenJolitz/software/mysql-connector-python-2.1.3/lib/mysql/connector/connection.py",
+		"/Users/BenJolitz/software/mysql-connector-python-2.1.3/lib/mysql/connector/catch23.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/mysql/connector/catch23.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/creative_sizes.py",
+		"/Users/BenJolitz/software/horcrux/horcrux.egg-info/top_level.txt",
+		"/Users/BenJolitz/software/horcrux/horcrux/management/targetprofile_management.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_targetprofile.py",
+		"/Users/BenJolitz/software/external_api/tests/fs_tests/test_adgroup_post.py",
+		"/Users/BenJolitz/software/external_api/tests/fs_tests/test_adgroup_put.py",
+		"/Users/BenJolitz/software/external_api/tests/fs_tests/dberrs",
+		"/Users/BenJolitz/software/horcrux/horcrux/management/__init__.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/management/campaign_management.py",
+		"/Users/BenJolitz/software/horcrux/loads.sql",
+		"/Users/BenJolitz/software/external_api/tests/fs_tests/test_account_put_get_del.py",
+		"/Users/BenJolitz/software/lightning/setup.py",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/mysql/connector/conversion.py",
+		"/Users/BenJolitz/software/external_api/creativejson",
+		"/Users/BenJolitz/software/external_api/json",
+		"/Users/BenJolitz/json",
+		"/Users/BenJolitz/software/external_api/test.py",
+		"/Users/BenJolitz/horcrux-insert-campaign-fail",
+		"/Users/BenJolitz/xadcentral-insert-db-fail",
+		"/Users/BenJolitz/.virtualenvs/cpython27/lib/python2.7/site-packages/pycountry/db.py",
+		"/Users/BenJolitz/software/horcrux/tests/test_user.py",
+		"/Users/BenJolitz/software/horcrux/horcrux/xadcms/tier_settings.py",
+		"/Users/BenJolitz/faulty.sql"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"SRC_PATH",
+			"DCOMPILE_FLAGS",
+			"LIBS",
+			"image_uploader_verifier",
+			"postfork",
+			"Radar",
+			"LOG_LOCA",
+			"Copying over c",
+			";\n",
+			"/home/xad/external_api/var/log/",
+			"/var/run/myfootprints/uwsgi.pid",
+			"    chown -R xad:xad /var/run/external_api",
+			"/home/xad/external_api/var/run/",
+			"myfootprints",
+			"db_utils",
+			"humanize",
+			".format",
+			"humanize",
+			"BID_TYPE_MAP",
+			"ALLOWED_INVERSE_BID_TYPES",
+			"linearize_histories",
+			"conn",
+			"set_tenant_id",
+			"tenant_id",
+			"horcrux.",
+			"config['db_settings']",
+			"start_settings",
+			"uwsgi_mode",
+			"start_settings",
+			"ExternalAPIRadar",
+			"Radar",
+			"radar",
+			"app.route",
+			"def his",
+			"def hiso",
+			"executeMultipleQueriesWithConnection",
+			"fetch_creatives",
+			"getCrea",
+			"def history",
+			"deprecated",
+			"return",
+			"fetch_geotargets",
+			"return",
+			"STRING",
+			"is_valid",
+			"busi",
+			"is_valid",
+			"business_location_history",
+			"business_profile_history",
+			"return",
+			"def his",
+			"_from",
+			"modified_date",
+			"performance_logger",
+			"cursor.",
+			"entries",
+			"multi",
+			"cursor.",
+			"cursor.lastrowid",
+			"zg",
+			" xadcms.account join geographic.zipcode_geocode zg",
+			"__async__",
+			"_exc_info",
+			"Return",
+			"2016-02-09T05:06:55.561405+00:00",
+			"2016-02-09T05:06:55.561400+00:00",
+			"1068819",
+			"109044",
+			"runner",
+			"partial",
+			"async",
+			"supergenerator",
+			"blockable",
+			"return",
+			"xadcms",
+			"INSERT_ALREADY_HAS_ID",
+			"num_conflicting_locations_deleted",
+			"print",
+			"that is different from it's parent",
+			"LOCATION_ADDRESS_LOCAL_INVALID",
+			"{country",
+			"{country{",
+			"that is different from it's parent",
+			"insert_or_",
+			":4",
+			"        if errors:",
+			"reasons",
+			"unique_name",
+			"duplicate_name",
+			"Brand",
+			"profile.account_id",
+			"account_exists",
+			"NATIONAL_LOCATION_ON_LOCAL_BIZ_PROFILE",
+			"location_type_error",
+			"if not queries:",
+			"index",
+			"f not queries",
+			"if not queries:",
+			"insertBusinessProfile",
+			"insert_or_update",
+			"INSERT INTO xadcms.mslocation",
+			"conn",
+			"LandingPageType",
+			"Creative",
+			"valid_delivery_channel",
+			"FOOTPRINTS_UPDATE_ERRORS",
+			"def refres",
+			"REFRESH_CALC_STATUS",
+			"status",
+			"handle_calc_status",
+			"(state)",
+			"ExtendedStatus",
+			"handle_calc_status",
+			"result_key",
+			" =",
+			"ExtendedStatus",
+			"adgroup.tenant_id = 1",
+			"1069842",
+			"_budget",
+			"campaign_budget",
+			"entityType",
+			"tenant_id = 2",
+			"1069834",
+			"startDate",
+			"NULL",
+			"'OKAY' ",
+			"ifnull",
+			"geotarget"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/BenJolitz/software/blaster/Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6626,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								459,
+								459
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "hello.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4370,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								756,
+								756
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 122.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git-checkout":
+	{
+		"height": 118.0
+	},
+	"output.git-commit":
+	{
+		"height": 118.0
+	},
+	"output.git-pull":
+	{
+		"height": 118.0
+	},
+	"output.git-push":
+	{
+		"height": 118.0
+	},
+	"pinned_build_system": "Packages/Makefile/Make.sublime-build",
+	"project": "blaster.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"ad",
+				"external_api/routes/fs/adgroup.py"
+			],
+			[
+				"abo",
+				"external_api/about.py"
+			],
+			[
+				"costag",
+				"config/app_config.staging.json"
+			],
+			[
+				"read",
+				"README.rst"
+			],
+			[
+				"make",
+				"Makefile"
+			],
+			[
+				"v3",
+				"external_api/v3_utils.py"
+			],
+			[
+				"appcof",
+				"external_api/app_config.py"
+			],
+			[
+				"init",
+				"external_api/__init__.py"
+			],
+			[
+				"app",
+				"app_config.json"
+			],
+			[
+				"set",
+				"bin/setup.sh"
+			],
+			[
+				"appcpr",
+				"config/app_config.production.json"
+			],
+			[
+				"appc",
+				"app_config.json"
+			],
+			[
+				"adgr",
+				"external_api/routes/fs/adgroup.py"
+			],
+			[
+				"init__",
+				"external_api/__init__.py"
+			],
+			[
+				"",
+				"scripts/test_async.py"
+			],
+			[
+				"test.sq",
+				"horcrux/xadcms/test.sql"
+			],
+			[
+				"testarp",
+				"tests/test_targetprofile.py"
+			],
+			[
+				"tarpr",
+				"horcrux/xadcms/targetprofile.py"
+			],
+			[
+				"ab",
+				"horcrux/about.py"
+			],
+			[
+				"crea",
+				"horcrux/xadcms/creative.py"
+			],
+			[
+				"xad",
+				"horcrux/xadcms/xadcms_utils.py"
+			],
+			[
+				"cam",
+				"horcrux/xadcms/campaign.py"
+			],
+			[
+				"testas",
+				"test_async.py"
+			],
+			[
+				"tesas",
+				"test_async.py"
+			],
+			[
+				"as",
+				"horcrux/async.py"
+			],
+			[
+				"tes",
+				"tests/test_brands.py"
+			],
+			[
+				"bus",
+				"horcrux/xadcms/business_info.py"
+			],
+			[
+				"ge",
+				"horcrux/xadcms/geotarget.py"
+			],
+			[
+				"busi",
+				"horcrux/xadcms/business_info.py"
+			],
+			[
+				"tar",
+				"horcrux/xadcms/targetprofile.py"
+			],
+			[
+				"db",
+				"horcrux/db_utils.py"
+			],
+			[
+				"geo",
+				"horcrux/xadcms/geotarget.py"
+			],
+			[
+				"ato",
+				"horcrux/xadcms/atomic.py"
+			],
+			[
+				"tarp",
+				"horcrux/xadcms/targetprofile.py"
+			],
+			[
+				"geot",
+				"horcrux/xadcms/geotarget.py"
+			],
+			[
+				"test_a",
+				"test_async.py"
+			],
+			[
+				"at",
+				"horcrux/xadcms/atomic.py"
+			],
+			[
+				"bud",
+				"horcrux/xadcms/budget.py"
+			],
+			[
+				"dbu",
+				"horcrux/db_utils.py"
+			],
+			[
+				"bui",
+				"horcrux/xadcms/business_info.py"
+			],
+			[
+				"t",
+				"test_async.py"
+			],
+			[
+				"b",
+				"horcrux/xadcms/budget.py"
+			],
+			[
+				"testb",
+				"tests/test_business_locations.py"
+			],
+			[
+				"testbusl",
+				"tests/test_business_locations.py"
+			],
+			[
+				"mix",
+				"horcrux/xadcms/mixins.py"
+			],
+			[
+				"err",
+				"horcrux/error_codes.py"
+			],
+			[
+				"testbui",
+				"tests/test_business_locations.py"
+			],
+			[
+				"testad",
+				"tests/test_adgroup.py"
+			],
+			[
+				"acc",
+				"horcrux/xadcms/account.py"
+			],
+			[
+				"en",
+				"horcrux/entity_types.py"
+			],
+			[
+				"ent",
+				"horcrux/entity_types.py"
+			],
+			[
+				"busl",
+				"tests/test_business_locations.py"
+			],
+			[
+				"buslo",
+				"tests/test_business_locations.py"
+			],
+			[
+				"sett",
+				"horcrux/xadcms/settings.py"
+			],
+			[
+				"bu",
+				"horcrux/xadcms/business_info.py"
+			],
+			[
+				"testcrea",
+				"tests/test_creative.py"
+			],
+			[
+				"tespro",
+				"tests/test_business_profile.py"
+			],
+			[
+				"testbusp",
+				"tests/test_business_profile.py"
+			],
+			[
+				"busin",
+				"horcrux/xadcms/business_info.py"
+			],
+			[
+				"testbus",
+				"tests/test_business_profile.py"
+			],
+			[
+				"testc",
+				"tests/test_creative.py"
+			],
+			[
+				"e",
+				"horcrux/entity_types.py"
+			],
+			[
+				"test_cr",
+				"tests/test_creative.py"
+			],
+			[
+				"testbi",
+				"tests/test_business_profile.py"
+			],
+			[
+				"error",
+				"horcrux/error_codes.py"
+			],
+			[
+				"adg",
+				"horcrux/xadcms/adgroup.py"
+			],
+			[
+				"adgro",
+				"horcrux/xadcms/adgroup.py"
+			],
+			[
+				"rea",
+				"README.rst"
+			],
+			[
+				"xadm",
+				"horcrux/xadcms/xadcms_utils.py"
+			],
+			[
+				"testa",
+				"tests/test_adgroup.py"
+			],
+			[
+				"sql",
+				"sqlshell.py"
+			],
+			[
+				"enti",
+				"horcrux/entity_types.py"
+			],
+			[
+				"ca",
+				"horcrux/xadcms/campaign.py"
+			],
+			[
+				"uti",
+				"horcrux/utils.py"
+			],
+			[
+				"us",
+				"horcrux/xadcms/user.py"
+			],
+			[
+				"user",
+				"horcrux/xadcms/user.py"
+			],
+			[
+				"xadcm",
+				"horcrux/xadcms/xadcms_utils.py"
+			],
+			[
+				"se",
+				"setup.py"
+			],
+			[
+				"git",
+				".gitignore"
+			],
+			[
+				"bra",
+				"horcrux/xadcms/brands.py"
+			],
+			[
+				"testca",
+				"tests/test_campaign.py"
+			],
+			[
+				"testcam",
+				"tests/test_campaign.py"
+			],
+			[
+				"tescr",
+				"tests/test_creative.py"
+			],
+			[
+				"testcr",
+				"tests/test_creative.py"
+			],
+			[
+				"get",
+				"horcrux/xadcms/geotarget.py"
+			],
+			[
+				"sto",
+				"horcrux/xadcms/stored.sql"
+			],
+			[
+				"canm",
+				"horcrux/xadcms/campaign.py"
+			],
+			[
+				"re",
+				"README.rst"
+			],
+			[
+				"test_adp",
+				"tests/test_adpackage.py"
+			],
+			[
+				"atom",
+				"horcrux/xadcms/atomic.py"
+			],
+			[
+				"testge",
+				"tests/test_geotarget.py"
+			],
+			[
+				"test_ge",
+				"tests/test_geotarget.py"
+			],
+			[
+				"dbut",
+				"horcrux/db_utils.py"
+			],
+			[
+				"sq",
+				"sqlshell.py"
+			],
+			[
+				"testbusipr",
+				"tests/test_business_profile.py"
+			],
+			[
+				"testbupro",
+				"tests/test_business_profile.py"
+			],
+			[
+				"testbu",
+				"tests/test_business_locations.py"
+			],
+			[
+				"tesbusi",
+				"tests/test_business_profile.py"
+			],
+			[
+				"comm",
+				"tests/common.py"
+			],
+			[
+				"testbuss",
+				"tests/test_business_profile.py"
+			],
+			[
+				"settin",
+				"horcrux/xadcms/settings.py"
+			],
+			[
+				"cate",
+				"horcrux/xadcms/categories.py"
+			],
+			[
+				"cr",
+				"horcrux/xadcms/creative.py"
+			],
+			[
+				"c",
+				"horcrux/xadcms/creative.py"
+			],
+			[
+				"testadb",
+				"tests/test_adgroup_budget.py"
+			],
+			[
+				"br",
+				"horcrux/xadcms/brands.py"
+			],
+			[
+				"geotar",
+				"horcrux/xadcms/geotarget.py"
+			],
+			[
+				"compa",
+				"horcrux/xadcms/companies.py"
+			],
+			[
+				"com",
+				"tests/common.py"
+			],
+			[
+				"publi",
+				"horcrux/xadcms/publisher_settings.py"
+			],
+			[
+				"pub",
+				"horcrux/xadcms/publisher_settings.py"
+			],
+			[
+				"__i",
+				"horcrux/__init__.py"
+			],
+			[
+				"testcompa",
+				"tests/test_companies.py"
+			],
+			[
+				"comp",
+				"horcrux/xadcms/companies.py"
+			],
+			[
+				"erro",
+				"horcrux/error_codes.py"
+			],
+			[
+				"test_adg",
+				"tests/test_adgroup.py"
+			],
+			[
+				"test_ad",
+				"tests/test_adpackage.py"
+			],
+			[
+				"can",
+				"horcrux/xadcms/campaign.py"
+			],
+			[
+				"setti",
+				"horcrux/xadcms/settings.py"
+			],
+			[
+				"to",
+				"horcrux.egg-info/top_level.txt"
+			],
+			[
+				"conf",
+				"horcrux/db_config.py"
+			],
+			[
+				"exc",
+				"horcrux/exceptions.py"
+			],
+			[
+				"eny",
+				"horcrux/entity_types.py"
+			],
+			[
+				"testbuslo",
+				"tests/test_business_locations.py"
+			],
+			[
+				"byd",
+				"horcrux/xadcms/budget.py"
+			],
+			[
+				"buif",
+				"horcrux/xadcms/business_info.py"
+			],
+			[
+				"atomic",
+				"horcrux/xadcms/atomic.py"
+			],
+			[
+				"tesb",
+				"tests/test_brands.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 782.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 309.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

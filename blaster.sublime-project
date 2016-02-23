@@ -1,0 +1,21 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+    "SublimeLinter":
+    {
+        "linters":
+        {
+            "clang": {
+                "extra_flags": "-std=c11 -Wall -Werror -Wextra",
+                "include_dirs": [
+                    "${project_folder}/include",
+                    "${project_folder}/include/contrib"
+                ]
+            }
+        }
+    },
+}
