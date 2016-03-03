@@ -29,6 +29,7 @@ typedef struct BLASTER_HTTP_REQUEST {
     struct http_parser_url *url_parser; // 4 or 8 bytes
     bool *keep_alive; // 4 or 8 bytes
     bool *body_ready; // 4 or 8
+    tcpsock client; // 4 or 8
 } BLASTER_HTTP_REQUEST;
 
 // Handlers for parsing HTTP requests:
@@ -71,6 +72,7 @@ const char error_no_path_found[145] = "HTTP/1.1 400 Bad Request\r\nContent-Lengt
 const char error_path_too_long[108] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 15\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nPath too long.\n";
 const char error_404_not_found[107] = "HTTP/1.1 404 Not Found\r\nContent-Length: 16\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nRoute not found\n";
 const char transfer_chunked_response[73] = "HTTP/1.1 200 Ok\r\nTransfer-Encoding: chunked\r\nContent-Type: text/plain\r\n\r\n";
+const char error_server_fault[106] = "HTTP/1.1 500 Internal Server Error\r\nContent-Type: text/plain\r\nContent-Length: 23\r\n\r\nInternal Server Fault\n";
 
 const char CRLF[2] = "\r\n";
 
@@ -98,6 +100,69 @@ void send_chunked_buffer(tcpsock client, char buffer[], size_t buffer_length) {
     tcpsend(client, CRLF, sizeof(CRLF), -1);
 }
 
+
+int handle_routes(BLASTER_HTTP_REQUEST* request, char path[], size_t path_length, const char* response, size_t *response_length) {
+    bool matched = false;
+    tcpsock client = request->client;
+    if (match_exact_path("/", path, path_length, &matched)) {
+        response = no_keep_alive;
+        *response_length = sizeof(no_keep_alive);
+        if(*request->keep_alive) {
+            response = keep_alive_capable;
+            *response_length = sizeof(keep_alive_capable);
+        }
+    } else if (match_exact_path("/goredump", path, path_length, &matched)) {
+        // signal to our send method that we're handling this.
+        *response_length = 0;
+
+        // Send preamble:
+        tcpsend(client, transfer_chunked_response, sizeof(transfer_chunked_response), -1);
+
+        int stderr_output = dup(STDERR_FILENO);
+        int out_pipe[2];
+        if (pipe(out_pipe) != 0) {
+            return -1;
+        }
+        // Make our pipe non-blocking:
+        long flags = fcntl(out_pipe[0], F_GETFL);
+        flags |= O_NONBLOCK;
+        fcntl(out_pipe[0], F_SETFL, flags);
+        // Set our writer pipe end as stderr fd
+        dup2(out_pipe[1], STDERR_FILENO);
+        // close our local writer handle
+        close(out_pipe[1]);
+        // Dump status
+        goredump();
+        // flush stderr to our pipe
+        fflush(stderr);
+        // Now let's read it.
+        char goredump_buf[512] = { 0 };
+        int num_read = 0;
+        // give 5ms to scrape it all together
+        int64_t deadline = now() + 5;
+        while((num_read = read(out_pipe[0], goredump_buf, sizeof(goredump_buf)-1)) != 0) {
+            if (now() > deadline) {
+                break;
+            }
+            if (num_read < 0) {
+                yield();
+                continue;
+            }
+            send_chunked_buffer(client, goredump_buf, num_read);
+        }
+        // Reasssign stderr_output as the primary STDERR handle
+        dup2(stderr_output, STDERR_FILENO);
+        close(out_pipe[0]);
+        // Close our local handle
+        close(stderr_output);
+        send_chunked_buffer(client, "", 0);
+    } else {
+        response = error_404_not_found;
+        *response_length = sizeof(error_404_not_found);
+    }
+    return !matched;
+}
+
 /*
 ** handle_request(tcpsock client)
 ** This is our request handler. It sets up an HTTP parser, signals various
@@ -109,7 +174,7 @@ void send_chunked_buffer(tcpsock client, char buffer[], size_t buffer_length) {
 ** Stack allocation is used in conjunction with pointers to elide expensive copying of structs
 ** and costly malloc()s
 */
-coroutine void handle_request(tcpsock client, int requests_left, http_parser_settings *settings) {
+coroutine void handle_request(tcpsock client, int64_t start_time_ms, int requests_left, http_parser_settings *settings) {
     char path[200] = {0};
     int path_length = 0;
     struct http_parser_url url_parser;
@@ -118,16 +183,15 @@ coroutine void handle_request(tcpsock client, int requests_left, http_parser_set
     bool keep_alive = false;
     bool body_ready = false;
 
-    BLASTER_HTTP_REQUEST request = {path, &path_length, &url_parser, &keep_alive, &body_ready};
+    BLASTER_HTTP_REQUEST request = {path, &path_length, &url_parser, &keep_alive, &body_ready, client};
 
 
     http_parser parser = {.data = &request};
     http_parser_init(&parser, HTTP_REQUEST);
 
     int64_t last_wakeup = 0;
-    int64_t request_start_ts = now();
     ipaddr client_address = tcpaddr(client);
-    int64_t end_time_ts = request_start_ts + MAX_REQUEST_LIFETIME_S*1000;
+    int64_t end_time_ts = start_time_ms + MAX_REQUEST_LIFETIME_S*1000;
 
     while(now() < end_time_ts) {
         char buf[2048] = {0};
@@ -155,7 +219,7 @@ coroutine void handle_request(tcpsock client, int requests_left, http_parser_set
             break;
         }
     }
-    bool matched = false;
+    bool errored = false;
     if (body_ready) {
         const char* response = error_no_path_found;
         size_t response_length = sizeof(error_no_path_found);
@@ -164,82 +228,31 @@ coroutine void handle_request(tcpsock client, int requests_left, http_parser_set
                 response = error_path_too_long;
                 response_length = sizeof(error_path_too_long);
             } else {
-                if (match_exact_path("/", path, path_length, &matched)) {
-                    response = no_keep_alive;
-                    response_length = sizeof(no_keep_alive);
-                    if(keep_alive) {
-                        response = keep_alive_capable;
-                        response_length = sizeof(keep_alive_capable);
-                    }
-                } else if (match_exact_path("/goredump", path, path_length, &matched)) {
-                    // signal to our send method that we're handling this.
-                    response_length = 0;
-
-                    // Send preamble:
-                    tcpsend(client, transfer_chunked_response, sizeof(transfer_chunked_response), -1);
-
-                    int stderr_output = dup(STDERR_FILENO);
-                    int out_pipe[2];
-                    if (pipe(out_pipe) != 0) {
-                        goto close;
-                    }
-                    // Make our pipe non-blocking:
-                    long flags = fcntl(out_pipe[0], F_GETFL);
-                    flags |= O_NONBLOCK;
-                    fcntl(out_pipe[0], F_SETFL, flags);
-                    // Set our writer pipe end as stderr fd
-                    dup2(out_pipe[1], STDERR_FILENO);
-                    // close our local writer handle
-                    close(out_pipe[1]);
-                    // Dump status
-                    goredump();
-                    // flush stderr to our pipe
-                    fflush(stderr);
-                    // Now let's read it.
-                    char goredump_buf[512] = { 0 };
-                    int num_read = 0;
-                    // give 5ms to scrape it all together
-                    int64_t deadline = now() + 5;
-                    while((num_read = read(out_pipe[0], goredump_buf, sizeof(goredump_buf)-1)) != 0) {
-                        if (now() > deadline) {
-                            break;
-                        }
-                        if (num_read < 0) {
-                            yield();
-                            continue;
-                        }
-                        send_chunked_buffer(client, goredump_buf, num_read);
-                    }
-                    // Reasssign stderr_output as the primary STDERR handle
-                    dup2(stderr_output, STDERR_FILENO);
-                    close(out_pipe[0]);
-                    // Close our local handle
-                    close(stderr_output);
-                    send_chunked_buffer(client, "", 0);
-                } else {
-                    response = error_404_not_found;
-                    response_length = sizeof(error_404_not_found);
+                // Do your routing magic
+                int err = handle_routes(&request, path, path_length, response, &response_length);
+                if (err) {
+                    response = error_server_fault;
+                    response_length = sizeof(error_server_fault);
+                    errored = true;
                 }
-                
             }
         }
         if (response_length > 0) {
             tcpsend(client, response, response_length, -1);
         }
         tcpflush(client, -1);
-        if (matched) {
+        if (!errored) {
             if (keep_alive && requests_left > 0) {
                 DEBUG_PRINTF("Connection is left as keep-alive.\n");
                 goto reuse;
             }
         }
     }
-    close:
-        DEBUG_PRINTF("Closing connection\n");
-        tcpclose(client);
+    DEBUG_PRINTF("Closing connection\n");
+    tcpclose(client);
     return;
     reuse:
-        handle_request(client, requests_left - 1, settings);
+        handle_request(client, start_time_ms, requests_left - 1, settings);
 }
 
 int main(int arg_count, char* args[]) {
@@ -299,7 +312,7 @@ int main(int arg_count, char* args[]) {
         if (client_tunnel == NULL) {
             continue;
         }
-        go(handle_request(client_tunnel, 40, &settings));
+        go(handle_request(client_tunnel, now(), 40, &settings));
     }
     return 0;
 }
