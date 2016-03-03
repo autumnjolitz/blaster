@@ -63,26 +63,15 @@ int on_body_ready(http_parser* parser) {
 }
 
 // Hardcoded HTTP responses
-char no_keep_alive[70] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nConnection: close\r\n\r\nHello World\n";
-char keep_alive_capable[132] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nContent-Type: text/plain\r\nKeep-Alive: timeout=5, max=40\r\nConnection: keep-alive\r\n\r\nHello World\n";
+const char no_keep_alive[70] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nConnection: close\r\n\r\nHello World\n";
+const char keep_alive_capable[132] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nContent-Type: text/plain\r\nKeep-Alive: timeout=5, max=40\r\nConnection: keep-alive\r\n\r\nHello World\n";
 
 
-char error_no_path_found[145] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 52\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nInvalid path specifier - malformatted HTTP request?\n";
-char error_path_too_long[108] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 15\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nPath too long.\n";
-char error_404_not_found[107] = "HTTP/1.1 404 Not Found\r\nContent-Length: 16\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nRoute not found\n";
-char transfer_chunked_response[73] = "HTTP/1.1 200 Ok\r\nTransfer-Encoding: chunked\r\nContent-Type: text/plain\r\n\r\n";
+const char error_no_path_found[145] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 52\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nInvalid path specifier - malformatted HTTP request?\n";
+const char error_path_too_long[108] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 15\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nPath too long.\n";
+const char error_404_not_found[107] = "HTTP/1.1 404 Not Found\r\nContent-Length: 16\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nRoute not found\n";
+const char transfer_chunked_response[73] = "HTTP/1.1 200 Ok\r\nTransfer-Encoding: chunked\r\nContent-Type: text/plain\r\n\r\n";
 
-/*
-** handle_request(tcpsock client)
-** This is our request handler. It sets up an HTTP parser, signals various
-** boolean pointers to indicate state, defines deadlines and invokes a yield after
-** a potentially expensive function (parsing HTTP headers).
-** The on_ functions above are used to checkpoint states in parsing and convey data
-** back to the suspended coroutine.
-**
-** Stack allocation is used in conjunction with pointers to elide expensive copying of structs
-** and costly malloc()s
-*/
 const char CRLF[2] = "\r\n";
 
 void send_chunked_buffer(tcpsock client, char buffer[], size_t buffer_length) {
@@ -109,6 +98,17 @@ void send_chunked_buffer(tcpsock client, char buffer[], size_t buffer_length) {
     tcpsend(client, CRLF, sizeof(CRLF), -1);
 }
 
+/*
+** handle_request(tcpsock client)
+** This is our request handler. It sets up an HTTP parser, signals various
+** boolean pointers to indicate state, defines deadlines and invokes a yield after
+** a potentially expensive function (parsing HTTP headers).
+** The on_ functions above are used to checkpoint states in parsing and convey data
+** back to the suspended coroutine.
+**
+** Stack allocation is used in conjunction with pointers to elide expensive copying of structs
+** and costly malloc()s
+*/
 coroutine void handle_request(tcpsock client, int requests_left, http_parser_settings *settings) {
     char path[200] = {0};
     int path_length = 0;
@@ -157,7 +157,7 @@ coroutine void handle_request(tcpsock client, int requests_left, http_parser_set
     }
     bool matched = false;
     if (body_ready) {
-        char* response = error_no_path_found;
+        const char* response = error_no_path_found;
         size_t response_length = sizeof(error_no_path_found);
         if (path_length > 0) {
             if (path_length > 199) {
