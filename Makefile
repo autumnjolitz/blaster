@@ -10,7 +10,7 @@ SRC_PATH = src
 # Space-separated pkg-config libraries used by this project
 LIBS = libmill
 # General compiler flags
-COMPILE_FLAGS = -std=c11 -Wall -Wextra -Werror -fno-stack-protector
+COMPILE_FLAGS = -std=c11 -Wall -Wextra -Werror
 # Additional release-specific flags
 RCOMPILE_FLAGS = -D NDEBUG -O1
 # Additional debug-specific flags
