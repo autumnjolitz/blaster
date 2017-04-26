@@ -64,15 +64,15 @@ int on_body_ready(http_parser* parser) {
 }
 
 // Hardcoded HTTP responses
-const char no_keep_alive[70] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nConnection: close\r\n\r\nHello World\n";
-const char keep_alive_capable[132] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nContent-Type: text/plain\r\nKeep-Alive: timeout=5, max=40\r\nConnection: keep-alive\r\n\r\nHello World\n";
+char no_keep_alive[70] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nConnection: close\r\n\r\nHello World\n";
+char keep_alive_capable[132] = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\nContent-Type: text/plain\r\nKeep-Alive: timeout=5, max=40\r\nConnection: keep-alive\r\n\r\nHello World\n";
 
 
-const char error_no_path_found[145] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 52\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nInvalid path specifier - malformatted HTTP request?\n";
-const char error_path_too_long[108] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 15\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nPath too long.\n";
-const char error_404_not_found[107] = "HTTP/1.1 404 Not Found\r\nContent-Length: 16\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nRoute not found\n";
-const char transfer_chunked_response[73] = "HTTP/1.1 200 Ok\r\nTransfer-Encoding: chunked\r\nContent-Type: text/plain\r\n\r\n";
-const char error_server_fault[106] = "HTTP/1.1 500 Internal Server Error\r\nContent-Type: text/plain\r\nContent-Length: 23\r\n\r\nInternal Server Fault\n";
+char error_no_path_found[145] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 52\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nInvalid path specifier - malformatted HTTP request?\n";
+char error_path_too_long[108] = "HTTP/1.1 400 Bad Request\r\nContent-Length: 15\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nPath too long.\n";
+char error_404_not_found[107] = "HTTP/1.1 404 Not Found\r\nContent-Length: 16\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nRoute not found\n";
+char transfer_chunked_response[73] = "HTTP/1.1 200 Ok\r\nTransfer-Encoding: chunked\r\nContent-Type: text/plain\r\n\r\n";
+char error_server_fault[106] = "HTTP/1.1 500 Internal Server Error\r\nContent-Type: text/plain\r\nContent-Length: 23\r\n\r\nInternal Server Fault\n";
 
 const char CRLF[2] = "\r\n";
 
@@ -101,14 +101,14 @@ void send_chunked_buffer(tcpsock client, char buffer[], size_t buffer_length) {
 }
 
 
-int handle_routes(BLASTER_HTTP_REQUEST* request, char path[], size_t path_length, const char* response, size_t *response_length) {
+int handle_routes(BLASTER_HTTP_REQUEST* request, char path[], size_t path_length, char** response, size_t *response_length) {
     bool matched = false;
     tcpsock client = request->client;
     if (match_exact_path("/", path, path_length, &matched)) {
-        response = no_keep_alive;
+        *response = no_keep_alive;
         *response_length = sizeof(no_keep_alive);
         if(*request->keep_alive) {
-            response = keep_alive_capable;
+            *response = keep_alive_capable;
             *response_length = sizeof(keep_alive_capable);
         }
     } else if (match_exact_path("/goredump", path, path_length, &matched)) {
@@ -157,8 +157,9 @@ int handle_routes(BLASTER_HTTP_REQUEST* request, char path[], size_t path_length
         close(stderr_output);
         send_chunked_buffer(client, "", 0);
     } else {
-        response = error_404_not_found;
+        *response = error_404_not_found;
         *response_length = sizeof(error_404_not_found);
+        matched = true;
     }
     return !matched;
 }
@@ -221,7 +222,7 @@ coroutine void handle_request(tcpsock client, int64_t start_time_ms, int request
     }
     bool errored = false;
     if (body_ready) {
-        const char* response = error_no_path_found;
+        char* response = error_no_path_found;
         size_t response_length = sizeof(error_no_path_found);
         if (path_length > 0) {
             if (path_length > 199) {
@@ -229,7 +230,7 @@ coroutine void handle_request(tcpsock client, int64_t start_time_ms, int request
                 response_length = sizeof(error_path_too_long);
             } else {
                 // Do your routing magic
-                int err = handle_routes(&request, path, path_length, response, &response_length);
+                int err = handle_routes(&request, path, path_length, &response, &response_length);
                 if (err) {
                     response = error_server_fault;
                     response_length = sizeof(error_server_fault);
@@ -302,6 +303,7 @@ int main(int arg_count, char* args[]) {
     settings.on_url = on_url_ready;
     settings.on_headers_complete = on_headers_ready;
     settings.on_message_complete = on_body_ready;
+    goprepare(1000, 100000, 128);
 
     // Event loop
     // Any time our server_socket is ready, check if the client socket is good
